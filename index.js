@@ -1,3 +1,4 @@
+const config = require('./config.json');
 const Discord = require('discord.js')
 const bot = new Discord.Client();
 const cheerio = require('cheerio')
@@ -9,8 +10,6 @@ function checkDays(date) {
     let days = Math.floor(diff / 86400000);
     return days + (days == 1 ? " day" : " days") + " ago";
 };
-
-const token = 'NjE5NjA3Mzc1NDkzNDY0MDg0.XXKsjw.o1LNrdycQNW8IrIznTYPWXk6xXo';
 
 const PREFIX = 'a!';
 
@@ -413,4 +412,14 @@ function meme(msg){
         msg.channel.sendEmbed(memem)
     });
 }
-bot.login(token);
+
+const http = require('http')
+var server = http.createServer();
+server.listen(process.env.PORT || 5000)
+
+setInterval(function() {
+    http.get("http://aurorabot2k19.herokuapp.com/");
+    console.log("Pinged!")
+}, 300000);
+
+bot.login(config.token);
